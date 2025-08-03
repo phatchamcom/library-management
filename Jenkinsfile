@@ -14,7 +14,7 @@ pipeline {
                }
                stage('Test') {
                    steps {
-                       bat 'php -l *.php' // Kiểm tra cú pháp PHP
+                       bat 'C:\\php\\php.exe -l *.php' // Kiểm tra cú pháp PHP
                        // Thêm unit test nếu có (sử dụng PHPUnit)
                    }
                }
