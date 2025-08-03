@@ -20,7 +20,7 @@ pipeline {
                }
                stage('Deploy') {
                    steps {
-                       bat 'cp -r . /var/www/html/library' // Triển khai lên thư mục web server
+                       bat 'xcopy . C:\\path\\to\\destination\\library /E /H /C /I' // Triển khai lên thư mục web server
                    }
                }
            }
