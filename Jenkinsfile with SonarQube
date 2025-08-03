@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn clean install' // Sử dụng lệnh phù hợp với dự án (Maven, Gradle, v.v.)
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') { // Tên server đã cấu hình
+                    sh 'mvn sonar:sonar' // Chạy phân tích với Maven, thay bằng lệnh phù hợp
+                }
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t my-app:latest .'
+            }
+        }
+    }
+}
