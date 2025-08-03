@@ -1,33 +1,35 @@
 pipeline {
-    agent any
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://your-git-repo-url.git'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'npm install' // Hoặc lệnh build tương ứng (ví dụ: mvn build cho Java)
-                sh 'npm run build' // Nếu là dự án web
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'npm test' // Chạy unit test hoặc các test tự động
-            }
-        }
-        stage('Deploy') {
-            steps {
-                // Ví dụ: triển khai lên server
-                sh 'scp -r ./build/* user@server:/path/to/webroot'
-            }
-        }
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: 'build/**', allowEmptyArchive: true
-            cleanWs() // Dọn dẹp workspace sau khi chạy
-        }
-    }
-}
+           agent any
+           stages {
+               stage('Checkout') {
+                   steps {
+                       git 'https://github.com/phatchamcom/library-management.git' // Thay bằng URL repo của bạn
+                   }
+               }
+               stage('Build') {
+                   steps {
+                       sh 'echo "Building..."'
+                       // Thêm lệnh build nếu cần (ví dụ: composer install cho PHP)
+                   }
+               }
+               stage('Test') {
+                   steps {
+                       sh 'php -l *.php' // Kiểm tra cú pháp PHP
+                       // Thêm unit test nếu có (sử dụng PHPUnit)
+                   }
+               }
+               stage('Deploy') {
+                   steps {
+                       sh 'cp -r . /var/www/html/library' // Triển khai lên thư mục web server
+                   }
+               }
+           }
+           post {
+               success {
+                   echo 'Pipeline completed successfully!'
+               }
+               failure {
+                   echo 'Pipeline failed!'
+               }
+           }
+       }
