@@ -8,19 +8,19 @@ pipeline {
                }
                stage('Build') {
                    steps {
-                       sh 'echo "Building..."'
+                       bat 'echo "Building..."'
                        // Thêm lệnh build nếu cần (ví dụ: composer install cho PHP)
                    }
                }
                stage('Test') {
                    steps {
-                       sh 'php -l *.php' // Kiểm tra cú pháp PHP
+                       bat 'php -l *.php' // Kiểm tra cú pháp PHP
                        // Thêm unit test nếu có (sử dụng PHPUnit)
                    }
                }
                stage('Deploy') {
                    steps {
-                       sh 'cp -r . /var/www/html/library' // Triển khai lên thư mục web server
+                       bat 'cp -r . /var/www/html/library' // Triển khai lên thư mục web server
                    }
                }
            }
